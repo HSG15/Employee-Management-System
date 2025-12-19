@@ -14,6 +14,19 @@ app.use(bodyParser.json());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Temporary route to initialize database
+const fs = require('fs');
+app.get('/setup-db', async (req, res) => {
+    try {
+        const schemaPath = path.join(__dirname, 'schema.sql');
+        const schemaSql = fs.readFileSync(schemaPath, 'utf8');
+        await pool.query(schemaSql);
+        res.send('Database initialized successfully! You can now login.');
+    } catch (err) {
+        res.status(500).send('Error initializing database: ' + err.message);
+    }
+});
+
 // Database connection
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
