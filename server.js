@@ -1,3 +1,4 @@
+require('dotenv').config();
 const path = require('path');
 
 const express = require('express');
@@ -6,7 +7,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -15,11 +16,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Database connection
 const pool = new Pool({
-    user: 'postgres',      // Default postgres user
-    host: 'localhost',
-    database: 'leave_management',
-    password: 'hsgiri',  // User needs to update this
-    port: 5432,
+    connectionString: process.env.DATABASE_URL,
+    ssl: process.env.DATABASE_URL && process.env.DATABASE_URL.includes('localhost') ? false : { rejectUnauthorized: false }
 });
 
 pool.connect((err, client, release) => {
