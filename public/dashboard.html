@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Employee Leave Management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Welcome, <span id="user-name">User</span></h1>
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <span id="user-role" class="status-badge" style="background: #e2e6ea; color: #495057;">Role</span>
+                <button onclick="logout()" class="btn"
+                    style="width: auto; padding: 8px 16px; background: #6c757d;">Logout</button>
+            </div>
+        </header>
+
+        <!-- Employee Section: Leave Balances -->
+        <div class="card">
+            <h3>Leave Balances</h3>
+            <div class="balance-card">
+                <div class="balance-item">
+                    <div class="count" id="vacation-balance">0</div>
+                    <div>Vacation Days</div>
+                </div>
+                <div class="balance-item">
+                    <div class="count" id="sick-balance">0</div>
+                    <div>Sick Leave</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-grid">
+            <!-- Left Column: Submit Request -->
+            <div>
+                <div class="card">
+                    <h3>Request Leave</h3>
+                    <form id="leave-request-form">
+                        <div class="form-group">
+                            <label for="leave-type">Leave Type</label>
+                            <select id="leave-type" required>
+                                <option value="vacation">Vacation</option>
+                                <option value="sick">Sick Leave</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="start-date">Start Date</label>
+                            <input type="date" id="start-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="end-date">End Date</label>
+                            <input type="date" id="end-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="reason">Reason</label>
+                            <textarea id="reason" rows="3" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Submit Request</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Right Column: Leave History / Manager View -->
+            <div>
+                <!-- Manager View: Pending Requests -->
+                <div id="manager-section" class="card" style="display: none;">
+                    <h3>All Leave Requests (Manager View)</h3>
+                    <ul class="leave-list" id="all-leaves-list">
+                        <!-- Populated by JS -->
+                    </ul>
+                </div>
+
+                <!-- Calendar View (Placeholder for Manager) -->
+                <div id="calendar-section" class="card" style="display: none;">
+                    <h3>Leave Calendar</h3>
+                    <div id="calendar-view">
+                        Calendar implementation to be added here.
+                    </div>
+                </div>
+
+                <!-- Employee View: My History -->
+                <div class="card">
+                    <h3>My Leave History</h3>
+                    <ul class="leave-list" id="my-leaves-list">
+                        <!-- Populated by JS -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+
+</html>
